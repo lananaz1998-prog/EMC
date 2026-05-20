@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ensemble, mais si seuls — La Tribune</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --noir:#0c0b0a;
+  --encre:#1c1a17;
+  --ardoise:#3a3630;
+  --gris:#7a746c;
+  --lin:#e8e2d9;
+  --ivoire:#f7f4ef;
+  --blanc:#fdfcfa;
+  --vermeil:#c0392b;
+  --vermeil2:#a93226;
+  --or:#b8963e;
+  --bleu-nuit:#1a2942;
+  --bleu:#2c4a7c;
+}
+html{background:var(--blanc);color:var(--encre);scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;overflow-x:hidden}
+
+/* BARRE LECTURE */
+#lectureBar{
+  position:fixed;top:0;left:0;height:2px;
+  background:var(--vermeil);z-index:999;
+  transform-origin:left;transform:scaleX(0);
+  transition:transform 0.08s linear;
+}
+
+/* MASTHEAD */
+.masthead{
+  border-bottom:1px solid var(--lin);
+  padding:18px 60px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;background:rgba(253,252,250,0.96);
+  backdrop-filter:blur(8px);z-index:90;
+}
+.mast-logo{
+  font-family:'Playfair Display',serif;
+  font-size:22px;font-weight:900;
+  letter-spacing:-0.02em;color:var(--noir);
+}
+.mast-logo span{color:var(--vermeil)}
+.mast-nav{
+  font-size:11px;font-weight:400;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--gris);
+  display:flex;gap:28px;align-items:center;
+}
+.mast-tag{
+  background:var(--vermeil);color:#fff;
+  font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;
+  padding:3px 10px;border-radius:2px;
+}
+
+/* HERO */
+.hero{
+  max-width:780px;margin:0 auto;
+  padding:72px 60px 56px;
+  border-bottom:1px solid var(--lin);
+}
+.hero-rubrique{
+  font-size:10.5px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--vermeil);margin-bottom:28px;
+  display:flex;align-items:center;gap:12px;
+}
+.hero-rubrique::after{content:'';flex:1;height:1px;background:var(--lin)}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(44px,6vw,76px);
+  font-weight:900;line-height:1.04;
+  letter-spacing:-0.025em;color:var(--noir);
+  margin-bottom:24px;
+}
+.hero h1 em{font-style:italic;color:var(--vermeil)}
+.hero-chapeau{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(17px,2.2vw,21px);
+  font-weight:300;line-height:1.6;
+  color:var(--ardoise);
+  border-left:2px solid var(--vermeil);
+  padding-left:20px;
+  margin-bottom:36px;
+}
+.hero-meta{
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+  font-size:11.5px;color:var(--gris);
+  border-top:1px solid var(--lin);padding-top:20px;
+}
+.hero-meta strong{color:var(--ardoise);font-weight:500}
+.hero-meta-sep{color:var(--lin)}
+
+/* CHIFFRE HERO */
+.hero-chiffre{
+  background:var(--noir);color:var(--blanc);
+  padding:48px 60px;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;
+  background-color:var(--noir);
+}
+.hc-item{
+  padding:32px 36px;background:var(--noir);text-align:center;
+  border-right:1px solid rgba(255,255,255,0.08);
+}
+.hc-item:last-child{border-right:none}
+.hc-n{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(42px,6vw,64px);font-weight:900;
+  color:var(--blanc);line-height:1;display:block;margin-bottom:10px;
+  counter-reset:none;
+}
+.hc-n .accent{color:var(--vermeil)}
+.hc-l{font-size:12px;color:rgba(255,255,255,0.45);line-height:1.5;font-weight:300}
+
+/* CORPS */
+.corps{max-width:680px;margin:0 auto;padding:0 60px}
+.corps-large{max-width:860px;margin:0 auto;padding:0 60px}
+
+/* SECTIONS */
+.section{padding:64px 0}
+.rubrique-label{
+  font-size:10px;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--vermeil);margin-bottom:20px;
+  display:flex;align-items:center;gap:10px;
+}
+.rubrique-label::before{content:'';width:20px;height:1px;background:var(--vermeil)}
+h2.titre-section{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(26px,3.5vw,40px);font-weight:700;
+  line-height:1.2;color:var(--noir);margin-bottom:28px;
+}
+.corps-texte{
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;line-height:1.82;color:var(--ardoise);margin-bottom:22px;
+}
+.corps-texte strong{color:var(--noir);font-weight:600}
+
+/* SEPARATEUR */
+.sep{height:1px;background:var(--lin);margin:0 60px}
+.sep-bold{height:2px;background:var(--encre);margin:0}
+
+/* CITATION MARQUANTE — effet spécial */
+.citation-bloc{
+  position:relative;
+  padding:52px 60px 44px;
+  margin:0;
+  overflow:hidden;
+  cursor:pointer;
+  background:var(--ivoire);
+  border-top:2px solid var(--vermeil);
+  border-bottom:2px solid var(--vermeil);
+  transition:background 0.4s;
+}
+.citation-bloc:hover{background:#f0ebe0}
+.citation-bloc::before{
+  content:'\201C';
+  font-family:'Playfair Display',serif;font-size:240px;font-weight:900;
+  color:rgba(192,57,43,0.06);
+  position:absolute;top:-40px;left:40px;line-height:1;
+  pointer-events:none;transition:opacity 0.4s,transform 0.4s;
+}
+.citation-bloc:hover::before{opacity:0.12;transform:scale(1.05)}
+.citation-bloc blockquote{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(20px,2.8vw,30px);font-style:italic;font-weight:400;
+  line-height:1.5;color:var(--noir);
+  max-width:640px;position:relative;
+}
+.citation-bloc cite{
+  display:block;margin-top:18px;
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;
+  letter-spacing:0.15em;text-transform:uppercase;color:var(--gris);
+  font-style:normal;
+}
+.citation-hint{
+  position:absolute;bottom:16px;right:24px;
+  font-size:10px;color:var(--gris);letter-spacing:0.1em;
+  opacity:0;transition:opacity 0.3s;
+  font-family:'DM Sans',sans-serif;
+}
+.citation-bloc:hover .citation-hint{opacity:1}
+
+/* ENCADRE TEMOIGNAGE */
+.temoignage{
+  border:1px solid var(--lin);
+  border-left:3px solid var(--or);
+  padding:32px 36px;margin:40px 0;
+  background:var(--blanc);
+  transition:border-left-width 0.3s;
+}
+.temoignage:hover{border-left-width:5px}
+.tem-texte{
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;font-style:italic;line-height:1.75;
+  color:var(--ardoise);margin-bottom:16px;
+}
+.tem-source{
+  font-size:11px;font-weight:500;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--or);font-family:'DM Sans',sans-serif;
+}
+
+/* GRAPHIQUES */
+.graphique-wrap{
+  margin:48px 0;
+}
+.g-entete{margin-bottom:20px}
+.g-titre{
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
+  color:var(--noir);margin-bottom:4px;letter-spacing:-0.01em;
+}
+.g-source{font-size:11px;color:var(--gris);font-style:italic}
+.g-canvas-wrap{position:relative;width:100%;height:300px}
+
+/* BANDE SOMBRE */
+.bande-sombre{
+  background:var(--bleu-nuit);
+  padding:80px 60px;margin:0;
+}
+.bande-sombre .corps{color:rgba(255,255,255,0.8)}
+.bande-sombre h2{color:#fff}
+.bande-sombre .corps-texte{color:rgba(255,255,255,0.7)}
+.bande-sombre .rubrique-label{color:#a8bcd4}
+.bande-sombre .rubrique-label::before{background:#a8bcd4}
+.bande-sombre .g-titre{color:rgba(255,255,255,0.9)}
+.bande-sombre .g-source{color:rgba(255,255,255,0.35)}
+
+/* INITIATIVES INTERACTIVES */
+.initiatives-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--lin);margin:40px 0;
+  border:1px solid var(--lin);
+}
+.init-card{
+  background:var(--blanc);padding:32px 28px;
+  cursor:pointer;transition:background 0.25s;
+  position:relative;overflow:hidden;
+}
+.init-card::after{
+  content:'';position:absolute;left:0;bottom:0;
+  height:2px;width:0;background:var(--vermeil);
+  transition:width 0.35s ease;
+}
+.init-card:hover{background:var(--ivoire)}
+.init-card:hover::after{width:100%}
+.init-ic{font-size:28px;margin-bottom:14px}
+.init-titre{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--noir);margin-bottom:8px}
+.init-texte{font-size:13px;line-height:1.65;color:var(--gris)}
+.init-chiffre{
+  margin-top:16px;
+  font-family:'Playfair Display',serif;font-size:28px;font-weight:700;
+  color:var(--vermeil);
+}
+
+/* CONCLUSION */
+.conclusion{
+  padding:88px 60px;
+  border-top:2px solid var(--encre);
+  text-align:center;
+}
+.conclusion .inner{max-width:620px;margin:0 auto}
+.concl-label{
+  font-size:10px;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--gris);margin-bottom:36px;font-family:'DM Sans',sans-serif;
+}
+.conclusion h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(26px,4vw,46px);font-weight:700;
+  line-height:1.2;color:var(--noir);margin-bottom:32px;
+}
+.conclusion h2 em{font-style:italic;color:var(--vermeil)}
+.concl-texte{
+  font-family:'Cormorant Garamond',serif;
+  font-size:19px;line-height:1.8;color:var(--ardoise);
+  margin-bottom:18px;
+}
+
+/* PIED */
+.pied{
+  border-top:1px solid var(--lin);padding:24px 60px;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:11px;color:var(--gris);flex-wrap:wrap;gap:10px;
+}
+.pied-logo{
+  font-family:'Playfair Display',serif;font-size:17px;
+  font-weight:900;color:var(--noir);letter-spacing:-0.02em;
+}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease}
+.rv.ok{opacity:1;transform:translateY(0)}
+.rv-left{opacity:0;transform:translateX(-24px);transition:opacity 0.7s ease,transform 0.7s ease}
+.rv-left.ok{opacity:1;transform:translateX(0)}
+
+/* ANIMATION COMPTEUR */
+@keyframes countUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* EASTER EGG OVERLAY */
+#easterOverlay{
+  position:fixed;inset:0;
+  background:var(--bleu-nuit);
+  z-index:9999;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.5s;
+}
+#easterOverlay.actif{opacity:1;pointer-events:all}
+.eo-inner{text-align:center;color:#fff;max-width:520px;padding:40px}
+.eo-titre{
+  font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,52px);
+  font-weight:900;font-style:italic;line-height:1.15;margin-bottom:24px;
+}
+.eo-titre em{color:var(--vermeil)}
+.eo-texte{font-size:16px;line-height:1.75;color:rgba(255,255,255,0.65);margin-bottom:32px}
+.eo-fermer{
+  background:transparent;border:1px solid rgba(255,255,255,0.3);
+  color:rgba(255,255,255,0.6);font-family:'DM Sans',sans-serif;
+  font-size:11px;letter-spacing:0.15em;text-transform:uppercase;
+  padding:12px 28px;cursor:pointer;border-radius:2px;
+  transition:all 0.25s;
+}
+.eo-fermer:hover{border-color:#fff;color:#fff}
+
+@media(max-width:640px){
+  .masthead{padding:14px 20px}
+  .hero{padding:48px 20px 40px}
+  .hero-chiffre{grid-template-columns:1fr;padding:0}
+  .hc-item{border-right:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+  .corps,.corps-large{padding:0 20px}
+  .sep{margin:0 20px}
+  .bande-sombre{padding:60px 20px}
+  .citation-bloc{padding:40px 20px 32px}
+  .initiatives-grid{grid-template-columns:1fr}
+  .conclusion{padding:64px 20px}
+  .pied{padding:20px;justify-content:center;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div id="lectureBar"></div>
+
+<!-- EASTER EGG OVERLAY -->
+<div id="easterOverlay">
+  <div class="eo-inner">
+    <div class="eo-titre">« L'homme est<br>un animal <em>social</em> »</div>
+    <div class="eo-texte">
+      Aristote le formulait il y a 2 400 ans. Pourtant, en 2025, des millions d'êtres humains vivent sans lien significatif avec autrui. Entre la sagesse antique et la réalité contemporaine, il y a tout un abîme que cet article tente de cartographier.
+    </div>
+    <button class="eo-fermer" onclick="fermerEaster()">Fermer ✕</button>
+  </div>
+</div>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="mast-logo">La Tribune <span>Civique</span></div>
+  <nav class="mast-nav">
+    <span class="mast-tag">Première · EMC</span>
+    <span>Lien social</span>
+    <span>Trimestre 3 · 2025</span>
+  </nav>
+</header>
+
+<!-- HERO -->
+<article>
+<div class="corps rv-left">
+  <div class="hero">
+    <div class="hero-rubrique">Enquête — Cohésion sociale</div>
+    <h1>Ensemble,<br>mais <em>si seuls</em></h1>
+    <p class="hero-chapeau">
+      À l'ère des smartphones et des réseaux sociaux, la société française traverse une crise silencieuse du lien social. Des millions de citoyens vivent dans un isolement invisible — et les jeunes ne sont pas épargnés. Enquête sur un tissu humain qui s'effile, et sur ceux qui tentent, patiemment, de le recoudre.
+    </p>
+    <div class="hero-meta">
+      <span>Par <strong>la Rédaction EMC</strong></span>
+      <span class="hero-meta-sep">·</span>
+      <span>Lecture <strong>6 min</strong></span>
+      <span class="hero-meta-sep">·</span>
+      <span>Classe de <strong>Première</strong></span>
+      <span class="hero-meta-sep">·</span>
+      <span style="color:var(--vermeil);font-weight:500;cursor:pointer" onclick="ouvrirEaster()">↗ Citation d'ouverture</span>
+    </div>
+  </div>
+</div>
+
+<!-- CHIFFRES HERO -->
+<div class="hero-chiffre rv">
+  <div class="hc-item">
+    <span class="hc-n" data-target="5" data-suffix="M">0</span>
+    <div class="hc-l">Français en isolement relationnel<br><em style="color:rgba(255,255,255,0.25);font-size:10px">Fondation de France, 2021</em></div>
+  </div>
+  <div class="hc-item">
+    <span class="hc-n" data-target="22" data-suffix="%">0</span>
+    <div class="hc-l">N'ont personne à qui parler en cas de difficulté<br><em style="color:rgba(255,255,255,0.25);font-size:10px">Baromètre ANSP, 2023</em></div>
+  </div>
+  <div class="hc-item">
+    <span class="hc-n" data-target="47" data-suffix="%">0</span>
+    <div class="hc-l">Font moins confiance à leurs voisins qu'il y a dix ans<br><em style="color:rgba(255,255,255,0.25);font-size:10px">CREDOC, 2023</em></div>
+  </div>
+</div>
+
+<!-- SECTION 1 -->
+<div class="sep"></div>
+<div class="corps">
+  <div class="section rv">
+    <div class="rubrique-label">Partie I</div>
+    <h2 class="titre-section">Un effritement silencieux, mais massif</h2>
+    <p class="corps-texte">
+      Le lien social désigne l'ensemble des relations qui unissent les membres d'une société : amitiés, solidarités, engagement citoyen, confiance entre voisins — et les valeurs partagées qui permettent à des individus de former une communauté. C'est le sociologue Émile Durkheim qui, dès 1897, théorisait que son effritement conduisait inévitablement à des crises individuelles et collectives profondes.
+    </p>
+    <p class="corps-texte">
+      Un siècle et quart plus tard, sa vision paraît <strong>tragiquement contemporaine</strong>. En France, les indicateurs convergent vers un même diagnostic : moins de participation associative, moins de confiance envers autrui, davantage d'isolement — et ce dans toutes les tranches d'âge. La pandémie de Covid-19 a agi comme un révélateur brutal, précipitant des tendances déjà à l'œuvre depuis plusieurs décennies.
+    </p>
+
+    <div class="graphique-wrap">
+      <div class="g-entete">
+        <div class="g-titre">Taux d'isolement relationnel déclaré par tranche d'âge (%)</div>
+        <div class="g-source">Source : Fondation de France, Baromètre de la solitude 2021–2023</div>
+      </div>
+      <div class="g-canvas-wrap" style="height:280px">
+        <canvas id="gIsolement" role="img" aria-label="Graphique en barres horizontales du taux d'isolement par tranche d'âge en France">Données : 18-30 ans 14%, 31-45 ans 9%, 46-60 ans 8%, 61-75 ans 11%, 75 ans et plus 16%</canvas>
+      </div>
+    </div>
+
+    <p class="corps-texte">
+      Ce que révèle ce graphique est contre-intuitif : l'image de la solitude associée au grand âge est désormais dépassée. Les <strong>18–30 ans</strong> figurent parmi les plus touchés, un phénomène qu'aucun programme public ne traitait jusqu'à récemment. Arrachés à leurs campus lors des confinements, privés de la vie associative et des liens informels qui se nouent en amphi ou à la cafétéria, beaucoup ont traversé une période de profond isolement sans filet.
+    </p>
+  </div>
+</div>
+
+<!-- CITATION INTERACTIVE -->
+<div class="citation-bloc rv" onclick="ouvrirEaster()">
+  <blockquote>« On peut avoir des centaines d'abonnés sur Instagram et se sentir profondément seul : les deux ne se contredisent pas, ils coexistent. »</blockquote>
+  <cite>Serge Paugam — Sociologue, directeur d'études à l'EHESS, Paris</cite>
+  <span class="citation-hint">↗ Cliquer pour une réflexion</span>
+</div>
+
+<!-- SECTION 2 — BANDE SOMBRE -->
+<div class="bande-sombre rv">
+  <div class="corps" style="max-width:680px;margin:0 auto">
+    <div class="rubrique-label" style="color:#a8bcd4">
+      <span style="width:20px;height:1px;background:#a8bcd4;display:block"></span>
+      Partie II
+    </div>
+    <h2 class="titre-section" style="color:#fff;margin-bottom:28px">Les réseaux sociaux :<br>lien ou illusion de lien ?</h2>
+    <p class="corps-texte" style="color:rgba(255,255,255,0.68)">
+      La question divise les chercheurs depuis une décennie. D'un côté, les plateformes numériques permettent de maintenir des relations à distance, d'organiser des mobilisations et de donner voix à des communautés autrefois invisibles. De l'autre, plusieurs études pointent un effet pervers : la sociabilité en ligne, intense mais superficielle, peut <strong style="color:rgba(255,255,255,0.9)">anesthésier le besoin de contact réel</strong> sans jamais le satisfaire.
+    </p>
+
+    <div class="graphique-wrap">
+      <div class="g-entete">
+        <div class="g-titre" style="color:rgba(255,255,255,0.85)">Évolution comparée : usage des réseaux sociaux vs. confiance interpersonnelle</div>
+        <div class="g-source" style="color:rgba(255,255,255,0.35)">Indice base 100 en 2012 — Source : Eurobaromètre, CREDOC, INSEE</div>
+      </div>
+      <div class="g-canvas-wrap" style="height:260px">
+        <canvas id="gEvolution" role="img" aria-label="Courbes montrant la hausse des réseaux sociaux et la baisse de la confiance interpersonnelle de 2012 à 2023">Usage réseaux sociaux en forte hausse, confiance interpersonnelle en baisse continue sur la période</canvas>
+      </div>
+    </div>
+
+    <div class="temoignage">
+      <div class="tem-texte">« Pendant le confinement, j'étais sur mon téléphone toute la journée. Sauf que le soir, quand je posais l'écran, je me sentais encore plus vide. Les messages, les stories, les likes… ça ne remplaçait pas vraiment une conversation, un repas avec des amis. J'ai mis du temps à comprendre la différence. »</div>
+      <div class="tem-source">Camille, 17 ans — Lycéenne à Lyon · Témoignage, 2023</div>
+    </div>
+
+    <p class="corps-texte" style="color:rgba(255,255,255,0.68)">
+      La chercheuse Sherry Turkle résume ce paradoxe avec une formule saisissante : nous sommes <em style="color:rgba(255,255,255,0.85)">seuls ensemble</em>. La connexion numérique offre une présence sans attention, une communication sans vulnérabilité. Or c'est précisément dans la vulnérabilité partagée — dans l'inconfort d'une vraie conversation — que naît le sentiment d'appartenance.
+    </p>
+  </div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="corps">
+  <div class="section rv">
+    <div class="rubrique-label">Partie III</div>
+    <h2 class="titre-section">Des citoyens qui recousent le tissu social</h2>
+    <p class="corps-texte">
+      Le diagnostic serait incomplet s'il n'évoquait pas les centaines d'initiatives qui, à rebours de cette tendance, recréent du lien là où il semblait perdu. Jardins partagés, repair cafés, accorderies, épiceries solidaires : une contre-culture discrète de la solidarité prend forme dans toute la France.
+    </p>
+  </div>
+</div>
+
+<!-- GRAPHIQUE INITIATIVES -->
+<div class="corps-large rv">
+  <div style="padding:0 0 40px">
+    <div class="g-entete" style="padding:0 60px 0">
+      <div class="g-titre">Participation aux initiatives de lien social (milliers de foyers participants, 2023)</div>
+      <div class="g-source">Sources : Associations nationales — bilan annuel 2023</div>
+    </div>
+    <div class="g-canvas-wrap" style="height:300px;padding:0 0px;margin-top:20px">
+      <canvas id="gInitiatives" role="img" aria-label="Graphique en barres horizontales des initiatives solidaires en France par nombre de foyers participants">Voisins Solidaires 3 millions, Épiceries solidaires 890 000, Jardins partagés 650 000, Repair Cafés 420 000, Accorderies 280 000</canvas>
+    </div>
+  </div>
+</div>
+
+<!-- CARTES INITIATIVES -->
+<div class="corps-large">
+  <div class="initiatives-grid rv">
+    <div class="init-card">
+      <div class="init-ic">🌱</div>
+      <div class="init-titre">Jardins partagés</div>
+      <div class="init-texte">Des espaces où se côtoient retraités, familles et étudiants autour d'un potager. Le jardinage est le prétexte ; le lien est le résultat.</div>
+      <div class="init-chiffre">650 K</div>
+    </div>
+    <div class="init-card">
+      <div class="init-ic">🤝</div>
+      <div class="init-titre">Accorderies</div>
+      <div class="init-texte">Échanger une heure de cours de guitare contre une heure de réparation de vélo. Sans argent, avec du temps. Un modèle qui recréé de la réciprocité.</div>
+      <div class="init-chiffre">280 K</div>
+    </div>
+    <div class="init-card">
+      <div class="init-ic">🔧</div>
+      <div class="init-titre">Repair Cafés</div>
+      <div class="init-texte">420 lieux où bénévoles et habitants réparent ensemble. Un prétexte brillant pour faire se rencontrer des personnes que rien d'autre n'aurait réunies.</div>
+      <div class="init-chiffre">420 K</div>
+    </div>
+    <div class="init-card">
+      <div class="init-ic">🏡</div>
+      <div class="init-titre">Voisins Solidaires</div>
+      <div class="init-texte">Des apéros de palier aux petits services quotidiens, ce programme réactive la vie de quartier dans des immeubles où des gens cohabitaient sans jamais se croiser.</div>
+      <div class="init-chiffre">3 M</div>
+    </div>
+  </div>
+</div>
+
+<div class="corps">
+  <div style="padding:48px 0 64px" class="rv">
+    <p class="corps-texte">
+      Ces espaces ont une vertu souvent sous-estimée : ils réunissent des personnes que rien d'autre n'aurait rassemblées. Une retraitée et un lycéen partageant un potager, un cadre et un demandeur d'emploi réparant ensemble une bicyclette — ces rencontres improbables sont précisément celles qui <strong>reconstruisent une confiance mutuelle</strong> et rappellent ce que signifie appartenir à une même communauté.
+    </p>
+    <p class="corps-texte">
+      L'État a également pris conscience de l'urgence. Le plan gouvernemental de lutte contre l'isolement, lancé en 2021 sous le nom « SOLITUDE », mobilise associations, mairies et citoyens bénévoles. Si ces efforts restent insuffisants face à l'ampleur du phénomène, ils signalent une prise de conscience salutaire : le lien social n'est pas un luxe, c'est une <strong>infrastructure invisible</strong> dont dépend la cohésion de toute démocratie.
+    </p>
+  </div>
+</div>
+
+<!-- CONCLUSION -->
+<div class="sep-bold"></div>
+<div class="conclusion rv">
+  <div class="inner">
+    <div class="concl-label">Pour conclure</div>
+    <h2>Le lien social :<br>une <em>infrastructure</em><br>à reconstruire ensemble</h2>
+    <p class="concl-texte">
+      Le lien social ne se décrète pas : il se construit, quotidiennement, dans les petits gestes du vivre ensemble. Sourire à un voisin, rejoindre une association, prendre le temps d'une vraie conversation plutôt que d'un message — autant d'actes modestes qui, multipliés par des millions de citoyens, forment le ciment d'une société solidaire.
+    </p>
+    <p class="concl-texte">
+      Dans un monde où la solitude est désormais reconnue comme un enjeu de santé publique, chacun d'entre nous est à la fois potentiellement isolé et potentiellement la solution à l'isolement d'un autre. La question du lien social n'est donc pas abstraite. Elle commence ici, maintenant, avec les personnes qui nous entourent.
+    </p>
+  </div>
+</div>
+
+<footer class="pied">
+  <span class="pied-logo">La Tribune Civique</span>
+  <span>Enseignement Moral et Civique · Première · Trimestre 3 · 2025</span>
+  <span>Sources : Fondation de France · CREDOC · EHESS · INSEE · Eurobaromètre · ANSP</span>
+</footer>
+</article>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const VERMEIL='#c0392b', OR='#b8963e', BLEU='#2c4a7c', BLEU2='#4a7cb8', GRIS='#7a746c', LIN='#e8e2d9';
+
+Chart.defaults.font.family="'DM Sans',sans-serif";
+Chart.defaults.font.size=12;
+
+let chartsInit={g1:false,g2:false,g3:false};
+
+function animBar(chart,delay){
+  setTimeout(()=>{
+    const d=chart.data.datasets[0].data;
+    const zeros=d.map(()=>0);
+    chart.data.datasets[0].data=zeros;
+    chart.update('none');
+    setTimeout(()=>{
+      chart.data.datasets[0].data=d;
+      chart.update({duration:900,easing:'easeOutQuart'});
+    },80);
+  },delay||0);
+}
+
+const g1=new Chart(document.getElementById('gIsolement'),{
+  type:'bar',indexAxis:'y',
+  data:{
+    labels:['75 ans et +','18 – 30 ans','61 – 75 ans','31 – 45 ans','46 – 60 ans'],
+    datasets:[{
+      data:[16,14,11,9,8],
+      backgroundColor:[VERMEIL,VERMEIL+'cc',GRIS+'99',GRIS+'66',GRIS+'44'],
+      borderRadius:3,borderSkipped:false
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,animation:{duration:0},
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'%'}}},
+    scales:{
+      x:{max:20,grid:{color:'rgba(0,0,0,0.05)'},ticks:{color:GRIS,callback:v=>v+'%'}},
+      y:{grid:{display:false},ticks:{color:'#3a3630',font:{size:12}}}
+    }
+  }
+});
+
+const g2=new Chart(document.getElementById('gEvolution'),{
+  type:'line',
+  data:{
+    labels:['2012','2014','2016','2018','2020','2022','2023'],
+    datasets:[
+      {label:'Usage réseaux sociaux',data:[100,122,148,170,205,238,252],
+       borderColor:VERMEIL,backgroundColor:'rgba(192,57,43,0.07)',
+       borderWidth:2,fill:true,tension:0.4,
+       pointRadius:4,pointBackgroundColor:VERMEIL,borderDash:[]},
+      {label:'Confiance interpersonnelle',data:[100,96,91,87,80,74,71],
+       borderColor:BLEU2,backgroundColor:'rgba(74,124,184,0.07)',
+       borderWidth:2,fill:true,tension:0.4,
+       pointRadius:4,pointBackgroundColor:BLEU2,borderDash:[5,4]}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,animation:{duration:0},
+    plugins:{legend:{display:false}},
+    scales:{
+      y:{grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'rgba(255,255,255,0.4)',callback:v=>v}},
+      x:{grid:{display:false},ticks:{color:'rgba(255,255,255,0.4)'}}
+    }
+  }
+});
+
+const legendDiv=document.createElement('div');
+legendDiv.style.cssText='display:flex;gap:24px;margin-top:16px;font-size:11px;color:rgba(255,255,255,0.45)';
+legendDiv.innerHTML=`
+  <span style="display:flex;align-items:center;gap:7px"><span style="width:22px;height:2px;background:${VERMEIL};display:inline-block;border-radius:2px"></span>Réseaux sociaux</span>
+  <span style="display:flex;align-items:center;gap:7px"><span style="width:22px;height:0;border-top:2px dashed ${BLEU2};display:inline-block"></span>Confiance interpersonnelle</span>`;
+document.getElementById('gEvolution').parentElement.after(legendDiv);
+
+const g3=new Chart(document.getElementById('gInitiatives'),{
+  type:'bar',indexAxis:'y',
+  data:{
+    labels:['Voisins Solidaires','Épiceries solidaires','Jardins partagés','Repair Cafés','Accorderies'],
+    datasets:[{
+      data:[3000,890,650,420,280],
+      backgroundColor:[BLEU,'#3d6a9e','#4f7eae',GRIS+'bb',GRIS+'77'],
+      borderRadius:3,borderSkipped:false
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,animation:{duration:0},
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw>=1000?(c.raw/1000).toFixed(0)+' 000 foyers':c.raw+' 000 foyers'}}},
+    scales:{
+      x:{grid:{color:'rgba(0,0,0,0.05)'},ticks:{color:GRIS,callback:v=>v>=1000?(v/1000).toFixed(0)+'K':v}},
+      y:{grid:{display:false},ticks:{color:'#3a3630',font:{size:12}}}
+    }
+  }
+});
+
+function animateCount(el){
+  const target=parseInt(el.dataset.target);
+  const suffix=el.dataset.suffix||'';
+  const dur=1400;const steps=60;const step=dur/steps;
+  let cur=0;
+  const timer=setInterval(()=>{
+    cur+=target/steps;
+    if(cur>=target){cur=target;clearInterval(timer);}
+    el.textContent=Math.round(cur)+suffix;
+  },step);
+}
+
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting)return;
+    e.target.classList.add('ok');
+    const id=e.target.querySelector('canvas')?.id;
+    if(id==='gIsolement'&&!chartsInit.g1){chartsInit.g1=true;animBar(g1,200)}
+    if(id==='gEvolution'&&!chartsInit.g2){chartsInit.g2=true;
+      setTimeout(()=>{
+        g2.data.datasets.forEach(ds=>{const d=[...ds.data];ds.data=d.map(()=>0);});
+        g2.update('none');
+        setTimeout(()=>{
+          const orig=[[100,122,148,170,205,238,252],[100,96,91,87,80,74,71]];
+          g2.data.datasets.forEach((ds,i)=>{ds.data=orig[i];});
+          g2.update({duration:1000,easing:'easeOutQuart'});
+        },80);
+      },200);
+    }
+    if(id==='gInitiatives'&&!chartsInit.g3){chartsInit.g3=true;animBar(g3,200)}
+    io.unobserve(e.target);
+  });
+},{threshold:0.15});
+
+document.querySelectorAll('.rv,.rv-left').forEach(el=>io.observe(el));
+
+document.querySelectorAll('[data-target]').forEach(el=>{
+  const numObs=new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting){animateCount(el);numObs.unobserve(el);}
+  },{threshold:0.5});
+  numObs.observe(el);
+});
+
+const bar=document.getElementById('lectureBar');
+window.addEventListener('scroll',()=>{
+  const total=document.body.scrollHeight-window.innerHeight;
+  bar.style.transform=`scaleX(${Math.min(window.scrollY/total,1)})`;
+},{passive:true});
+
+function ouvrirEaster(){document.getElementById('easterOverlay').classList.add('actif')}
+function fermerEaster(){document.getElementById('easterOverlay').classList.remove('actif')}
+document.getElementById('easterOverlay').addEventListener('click',function(e){if(e.target===this)fermerEaster()});
+</script>
+</body>
+</html>
